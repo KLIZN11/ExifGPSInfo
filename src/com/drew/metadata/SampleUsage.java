@@ -47,12 +47,6 @@ public class SampleUsage {
 					} else if (tagName.equals("Image Width")) {
 						//图片宽度
 						imgInfoBean.setImgWidth(desc);
-					} else if (tagName.equals("Date/Time Original")) {
-						//拍摄时间
-						imgInfoBean.setDateTime(desc);
-					} else if (tagName.equals("GPS Altitude")) {
-						//海拔
-						imgInfoBean.setAltitude(desc);
 					} else if (tagName.equals("GPS Latitude")) {
 						//纬度
 						imgInfoBean.setLatitude(pointToLatlong(desc));
@@ -82,7 +76,7 @@ public class SampleUsage {
 	   
 	    public static void main(String[] args)
 	    {
-	        ImgInfoBean imgInfoBean = new SampleUsage().parseImgInfo("C:\\Users\\Lenovo\\Desktop\\12345.jpg");
+	        ImgInfoBean imgInfoBean = new SampleUsage().parseImgInfo("C:\\Users\\Lenovo\\Desktop\\IMG20190307095320.jpg");
 	        System.out.println(imgInfoBean.toString());
 	    }
 
