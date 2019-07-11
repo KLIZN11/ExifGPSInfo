@@ -7,10 +7,8 @@ import com.drew.imaging.ImageMetadataReader;
 import com.drew.imaging.ImageProcessingException;
 
 public class SampleUsage {
-	/**
-	    * 图片信息获取metadata元数据信息
-	    * @param fileName 需要解析的文件
-	    */
+	// 图片信息获取metadata元数据信息
+	   
 	    public ImgInfoBean parseImgInfo (String fileName)
 	    {
 	        File file = new File(fileName);
@@ -26,12 +24,8 @@ public class SampleUsage {
 	        return imgInfoBean;
 	    }
 	 
-	    /**
-	     * 读取metadata里面的信息
-	     * @param sourceFile 源文件
-	     * @param metadata metadata元数据信息
-	     * @return
-	     */
+	    //读取metadata里面的信息
+	    
 	    private ImgInfoBean printImageTags(File sourceFile, Metadata metadata)
 	    {
 	        ImgInfoBean imgInfoBean = new ImgInfoBean ();
@@ -42,16 +36,14 @@ public class SampleUsage {
 	            	String tagName = tag.getTagName();
 	            	String desc = tag.getDescription();
 					if (tagName.equals("Image Height")) {
-						//图片高度
 						imgInfoBean.setImgHeight(desc);
 					} else if (tagName.equals("Image Width")) {
-						//图片宽度
 						imgInfoBean.setImgWidth(desc);
+					} else if (tagName.equals("GPS Altitude")) {
+						imgInfoBean.setAltitude(desc);
 					} else if (tagName.equals("GPS Latitude")) {
-						//纬度
 						imgInfoBean.setLatitude(pointToLatlong(desc));
 					} else if (tagName.equals("GPS Longitude")) {
-						//经度
 						imgInfoBean.setLongitude(pointToLatlong(desc));
 					}
 	            }
@@ -62,10 +54,8 @@ public class SampleUsage {
 	        return imgInfoBean;
 	    }
 	 
-	    /**
-	     * 经纬度转换  度分秒转换
-	     * @param point 坐标点
-	     */
+	    
+	    
 	    public String pointToLatlong (String point ) {
 	    	Double du = Double.parseDouble(point.substring(0, point.indexOf("°")).trim());
 	    	Double fen = Double.parseDouble(point.substring(point.indexOf("°")+1, point.indexOf("'")).trim());
@@ -76,7 +66,7 @@ public class SampleUsage {
 	   
 	    public static void main(String[] args)
 	    {
-	        ImgInfoBean imgInfoBean = new SampleUsage().parseImgInfo("C:\\Users\\Lenovo\\Desktop\\IMG20190307095320.jpg");
+	        ImgInfoBean imgInfoBean = new SampleUsage().parseImgInfo("C:\\Users\\Lenovo\\Desktop\\12.jpg");
 	        System.out.println(imgInfoBean.toString());
 	    }
 

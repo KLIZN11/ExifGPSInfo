@@ -7,11 +7,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.drew.metadata.ImgInfoBean;
+
 import com.edu.imnu.exifgps.util.DBUtil;
 
 public class gpsDAO {
-	public List<String> getGpsList(){
+	public List <String>getGpsList(){
 		List<String>list=new ArrayList<String>();
 		Connection conn=DBUtil.getConnection();
 		//if(connection==null) 

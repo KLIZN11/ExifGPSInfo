@@ -15,7 +15,7 @@
 body, html,#allmap {width: 100%;height: 100%;overflow: hidden;margin:0;}
 </style>
 <script type="text/javascript" src="http://api.map.baidu.com/api?v=1.2&ak=8xQSmKfmrvww8c65tlUd0XjmhPqlLFOo"></script>
-<script type="text/javascript" src="http://developer.baidu.com/map/jsdemo/demo/convertor.js"></script>
+
 <title>地图</title>
 </head>
 <body>
@@ -23,29 +23,19 @@ body, html,#allmap {width: 100%;height: 100%;overflow: hidden;margin:0;}
 <script type="text/javascript">
 
 	var map = new BMap.Map("baidu_map");
-	
+
 	<%
-	gpsDAO gps=new gpsDAO();
-	List <String>list=gps.getGpsList();
-	List <Position>points=new ArrayList<Position>();
+	int i=0;
+	int x1=44;
+	int y1=111;
 	int flag=0;
-	float x1=0;
-	float y1=0;
-	if(list!=null){
-		for(String path:list){
-			Position point=new Position();
-			ImgInfoBean imgInfoBean = new SampleUsage().parseImgInfo(path);
-			point.x=imgInfoBean.getLongitudeNumber();
-			point.y=imgInfoBean.getLatitudeNumber();
-			points.add(point);
-		}
-		for(Position nowpoi:points){
+		for(i=0;i<3;i++){
 			if(flag==1){
 				%>
 				var beforex="<%=x1%>";
 				var beforey="<%=y1%>";
-				var nowx="<%=nowpoi.x%>";
-				var nowy="<%=nowpoi.y%>";
+				var nowx="<%=x1+0.1%>";
+				var nowy="<%=y1+0.2%>";
 				var pointA =new BMap.Point(parseFloat(beforex),parseFloat(beforey));
 				var pointB =new BMap.Point(parseFloat(nowx),parseFloat(nowy));
 				var polyline =new BMap.Polyline([pointA,pointB],{strokeColor:"blue",strokeWeight:6,strokeOpacity:0.5});
@@ -53,23 +43,22 @@ body, html,#allmap {width: 100%;height: 100%;overflow: hidden;margin:0;}
 				<%
 			}else{
 				%>
-				var nowx="<%=nowpoi.x%>";
-				var nowy="<%=nowpoi.y%>";
+				var nowx="<%=x1%>";
+				var nowy="<%=y1%>";
 				var point =new BMap.Point(parseFloat(nowx),parseFloat(nowy));
-				//地图初始化
+				//初始化
 				map.centerAndZoom(Point, 15);
 				map.enableScrollWheelZoom();
 				//添加一个跳跃的点
 				var marker = new BMap.Map(point);//标注
 				map.addOverlay(marker);
 				marker.setAnimation(BMAP_ANIMATION_BOUNCE);
+				
 				<%
 			}
-			x1=nowpoi.x;
-			y1=nowpoi.y;
 			flag=1;
 		}
-	}
+	
 	%>
 	//控件
 	var top_left_control = new BMap.ScaleControl({anchor: BMAP_ANCHOR_TOP_LEFT});//左上角比例尺
